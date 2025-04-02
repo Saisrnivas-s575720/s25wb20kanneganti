@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  h1.text-center.mb-4 A Random Item
+
+  //- JavaScript logic for random selection
+  -
+    var image_names = ["img1.jpeg", "img2.jpeg", "img3.jpeg", "img4.jpeg", "img5.jpeg"];
+    var results = [];
+    for (let i = 0; i < 3; i++) {
+      let index = Math.floor(Math.random() * image_names.length);
+      results.push(image_names[index]);
+    }
+
+  //- Display images side by side in Bootstrap grid
+  .container
+    .row.justify-content-center
+      each img, index in results
+        .col-md-3.text-center
+          img(
+            src=`/images/${img}`,
+            alt=img,
+            width="300",
+            height="300",
+            class="img-fluid border rounded mb-2",
+            onclick=`buy(${index})`
+          )
+          p #{img.split('.')[0]}
+
+  //- Script for buy alert
+  script.
+    function buy(index) {
+      alert("You purchased item " + index);
+    }

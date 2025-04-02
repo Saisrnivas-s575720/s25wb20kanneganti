@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var journalsRouter = require('./routes/journals'); // added
+var journalsRouter = require('./routes/journals');
+var gridRouter = require('./routes/grid');
+var pickRouter = require('./routes/pick'); // For random images
 
 var app = express();
 
@@ -19,8 +21,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ROUTES
 app.use('/', indexRouter);
-app.use('/journals', journalsRouter); // added route
+app.use('/journals', journalsRouter);
+app.use('/grid', gridRouter);
+app.use('/pick', pickRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
