@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1.text-center.mb-4 A Random Item
+  h1 A Random Item
 
   //- JavaScript logic for random selection
   -
@@ -12,22 +12,11 @@ block content
       results.push(image_names[index]);
     }
 
-  //- Display images side by side in Bootstrap grid
-  .container
-    .row.justify-content-center
-      each img, index in results
-        .col-md-3.text-center
-          img(
-            src=`/images/${img}`,
-            alt=img,
-            width="300",
-            height="300",
-            class="img-fluid border rounded mb-2",
-            onclick=`buy(${index})`
-          )
-          p #{img.split('.')[0]}
+  //- Display selected images
+  each img in results
+    img(src=`/images/${img}`, alt=img, width="300", height="300", class="m-2 border rounded")
+    button(type="button", class="btn btn-primary m-2", onclick=`buy(${results.indexOf(img)})`) Buy
 
-  //- Script for buy alert
   script.
     function buy(index) {
       alert("You purchased item " + index);
